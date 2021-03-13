@@ -28,7 +28,7 @@ class MyHomeScreen extends StatelessWidget {
           Container(
             height: size.height * .45, //全部設備高度佔45%
             // decoration: BoxDecoration(color: Color()),
-            color: Color.fromRGBO(133, 163, 146, 0.6),
+            color: Color.fromRGBO(170, 205, 190, 0.7),
           ),
           Padding(
             padding: const EdgeInsets.all(10),
@@ -41,7 +41,7 @@ class MyHomeScreen extends StatelessWidget {
                       width: 52,
                       height: 52,
                       decoration: BoxDecoration(
-                        color: Color.fromRGBO(133, 163, 146, 1),
+                        color: Color.fromRGBO(170, 205, 190, 1),
                         shape: BoxShape.circle,
                       ),
                       child: IconButton(
@@ -61,35 +61,26 @@ class MyHomeScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 30),
                       crossAxisCount: 2,
                       childAspectRatio: 3 / 4, //長寬比
+                      crossAxisSpacing: 20,
+                      // mainAxisSpacing: 20,
                       children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 30),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(13),
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              IconButton(
-                                icon: Icon(Icons.people),
-                                tooltip: 'people',
-                                onPressed: null,
-                                iconSize: 70,
-                                padding: EdgeInsets.only(left: 20,top:40,right: 20,bottom: 10),
-                              ),
-                              Text(
-                                "員工管理",
-                                style: Theme.of(context).textTheme.title,
-                              ),
-                              // CategoryCard(
-                              //   title: "員工管理",
-                              //   svgSrc: "assets/icons/Hamburger.svg",
-                              //   press: () {},
-                              // ),
-                            ],
-                          )
-                        )
-                      ],
+                        CategoryCard(
+                          title:"員工管理",
+                          iconSrc: Icons.group,
+                        ),
+                        CategoryCard(
+                          title:"車輛管理",
+                          iconSrc: Icons.directions_bus_rounded ,
+                        ),
+                        CategoryCard(
+                          title:"庫存管理",
+                          iconSrc: Icons.medical_services,
+                        ),
+                        CategoryCard(
+                          title:"公告管理",
+                          iconSrc: Icons.create,
+                        ),
+                        ], //把做好的方框按鈕命名為此方法
                     ),
                   ),
                 ],
@@ -98,6 +89,48 @@ class MyHomeScreen extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+//方框按鈕參照
+class CategoryCard extends StatelessWidget {
+  final IconData iconSrc;
+  final String title;
+  const CategoryCard({
+    Key key,
+    this.iconSrc,
+    this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 30),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(13),
+      ),
+      child: Column(
+        children: <Widget>[
+          IconButton(
+            icon: Icon(iconSrc),
+            // icon: Icon(Icons.people),
+            // tooltip: 'people',
+            // onPressed: null,
+            iconSize: 70,
+            padding: EdgeInsets.only(left: 20,top:40,right: 20,bottom: 10),
+          ),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.title,
+          ),
+          // CategoryCard(
+          //   title: "員工管理",
+          //   svgSrc: "assets/icons/Hamburger.svg",
+          //   press: () {},
+          // ),
+        ],
+      )
     );
   }
 }
