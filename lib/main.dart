@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manager_app/widget/category_card.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,6 +24,31 @@ class MyHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      //下方功能列設定---------------------------------
+      bottomNavigationBar: Container( 
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+        height: 70,
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween, //Item按鈕間的距離排版
+          children: <Widget>[
+            BottomNavItem(
+              iconSrc: Icons.date_range_outlined,
+              textSrc: "Reservation",
+            ),
+            BottomNavItem(
+              iconSrc: Icons.directions_bus_outlined,
+              textSrc: "Dispatching",
+              // isActive: true,
+            ),
+            BottomNavItem(
+              iconSrc: Icons.bar_chart,
+              textSrc: "Chart",
+            ),
+          ],
+        ),
+      ),
+      //---------------------------------
       body: Stack(
         children: <Widget>[
           Container(
@@ -56,6 +82,7 @@ class MyHomeScreen extends StatelessWidget {
                           .textTheme
                           .display1
                           .copyWith(fontWeight: FontWeight.w900)),
+                  //功能框設定---------------------------
                   Expanded(
                     child: GridView.count(
                       padding: EdgeInsets.symmetric(vertical: 30),
@@ -67,22 +94,27 @@ class MyHomeScreen extends StatelessWidget {
                         CategoryCard(
                           title:"員工管理",
                           iconSrc: Icons.group,
+                          press: (){},
                         ),
                         CategoryCard(
                           title:"車輛管理",
-                          iconSrc: Icons.directions_bus_rounded ,
+                          iconSrc: Icons.directions_bus_rounded,
+                          press: (){},
                         ),
                         CategoryCard(
                           title:"庫存管理",
                           iconSrc: Icons.medical_services,
+                          press: (){},
                         ),
                         CategoryCard(
                           title:"公告管理",
                           iconSrc: Icons.create,
+                          press: (){},
                         ),
                         ], //把做好的方框按鈕命名為此方法
                     ),
                   ),
+                  //--------------------------------------
                 ],
               ),
             ),
@@ -92,45 +124,42 @@ class MyHomeScreen extends StatelessWidget {
     );
   }
 }
-//方框按鈕參照
-class CategoryCard extends StatelessWidget {
+
+class BottomNavItem extends StatelessWidget {
+  final String textSrc;
   final IconData iconSrc;
-  final String title;
-  const CategoryCard({
-    Key key,
-    this.iconSrc,
-    this.title,
+  final Function press;
+  // final bool isActive;
+  const BottomNavItem({
+    Key key, 
+    this.textSrc, 
+    this.iconSrc, 
+    this.press, 
+    // this.isActive = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 30),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(13),
-      ),
-      child: Column(
-        children: <Widget>[
-          IconButton(
-            icon: Icon(iconSrc),
-            // icon: Icon(Icons.people),
-            // tooltip: 'people',
-            // onPressed: null,
-            iconSize: 70,
-            padding: EdgeInsets.only(left: 20,top:40,right: 20,bottom: 10),
-          ),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.title,
-          ),
-          // CategoryCard(
-          //   title: "員工管理",
-          //   svgSrc: "assets/icons/Hamburger.svg",
-          //   press: () {},
-          // ),
-        ],
-      )
+    return GestureDetector(
+      onTap: press,
+      // child: FlatButton(
+      //   onPressed: () => {},
+        // padding: EdgeInsets.only(left: 50,top:10,right: 30,bottom: 10),
+        child: Column( 
+          mainAxisAlignment: MainAxisAlignment.spaceAround, //icon與字的排版樣式
+          children: <Widget>[
+            Icon(
+              iconSrc,
+              color:Color.fromRGBO(170, 205, 190, 1),
+            ),
+            
+            Text(
+              textSrc,
+              style: TextStyle(color:Color.fromRGBO(170, 205, 190, 1)),  
+            ),
+          ],
+        ),
+      // ),
     );
   }
 }
