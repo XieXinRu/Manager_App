@@ -39,7 +39,7 @@ class CategoryCard extends StatelessWidget {
                 icon: Icon(iconSrc),
                 // icon: Icon(Icons.people),
                 // tooltip: 'people',
-                // onPressed: null,
+                onPressed: press,
                 iconSize: 70,
                 padding: EdgeInsets.only(left: 20,top:40,right: 20,bottom: 10),
               ),

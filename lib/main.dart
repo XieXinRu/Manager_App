@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:manager_app/widget/BottonNavbar.dart';
+import 'package:manager_app/widget/announce.dart';
+import 'package:manager_app/widget/car.dart';
 import 'package:manager_app/widget/category_card.dart';
+import 'package:manager_app/widget/emp.dart';
+import 'package:manager_app/widget/stock.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,29 +30,7 @@ class MyHomeScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       //下方功能列設定---------------------------------
-      bottomNavigationBar: Container( 
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-        height: 70,
-        color: Colors.white,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween, //Item按鈕間的距離排版
-          children: <Widget>[
-            BottomNavItem(
-              iconSrc: Icons.date_range_outlined,
-              textSrc: "Reservation",
-            ),
-            BottomNavItem(
-              iconSrc: Icons.directions_bus_outlined,
-              textSrc: "Dispatching",
-              // isActive: true,
-            ),
-            BottomNavItem(
-              iconSrc: Icons.bar_chart,
-              textSrc: "Chart",
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: BottomNavbar(),
       //---------------------------------
       body: Stack(
         children: <Widget>[
@@ -72,7 +55,8 @@ class MyHomeScreen extends StatelessWidget {
                       ),
                       child: IconButton(
                         icon: Icon(Icons.settings),
-                        tooltip: 'Search',
+                        color: Colors.white,
+                        tooltip: 'settings',
                         onPressed: null,
                       ),
                     ),
@@ -94,22 +78,38 @@ class MyHomeScreen extends StatelessWidget {
                         CategoryCard(
                           title:"員工管理",
                           iconSrc: Icons.group,
-                          press: (){},
+                          press: () {    
+                            Navigator.push(context, MaterialPageRoute(builder:(context) {
+                              return EmpPage();
+                            }));
+                          },
                         ),
                         CategoryCard(
                           title:"車輛管理",
                           iconSrc: Icons.directions_bus_rounded,
-                          press: (){},
+                          press: () {    
+                            Navigator.push(context, MaterialPageRoute(builder:(context) {
+                              return CarPage();
+                            }));
+                          },
                         ),
                         CategoryCard(
                           title:"庫存管理",
                           iconSrc: Icons.medical_services,
-                          press: (){},
+                          press: () {    
+                            Navigator.push(context, MaterialPageRoute(builder:(context) {
+                              return StockPage();
+                            }));
+                          },
                         ),
                         CategoryCard(
                           title:"公告管理",
                           iconSrc: Icons.create,
-                          press: (){},
+                          press: () {    
+                            Navigator.push(context, MaterialPageRoute(builder:(context) {
+                              return AnnoPage();
+                            }));
+                          },
                         ),
                         ], //把做好的方框按鈕命名為此方法
                     ),
@@ -121,45 +121,6 @@ class MyHomeScreen extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class BottomNavItem extends StatelessWidget {
-  final String textSrc;
-  final IconData iconSrc;
-  final Function press;
-  // final bool isActive;
-  const BottomNavItem({
-    Key key, 
-    this.textSrc, 
-    this.iconSrc, 
-    this.press, 
-    // this.isActive = false,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: press,
-      // child: FlatButton(
-      //   onPressed: () => {},
-        // padding: EdgeInsets.only(left: 50,top:10,right: 30,bottom: 10),
-        child: Column( 
-          mainAxisAlignment: MainAxisAlignment.spaceAround, //icon與字的排版樣式
-          children: <Widget>[
-            Icon(
-              iconSrc,
-              color:Color.fromRGBO(170, 205, 190, 1),
-            ),
-            
-            Text(
-              textSrc,
-              style: TextStyle(color:Color.fromRGBO(170, 205, 190, 1)),  
-            ),
-          ],
-        ),
-      // ),
     );
   }
 }
